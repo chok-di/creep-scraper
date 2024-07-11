@@ -2,14 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { Page } from 'puppeteer';
 
-import ScrapedData from '../Interface';
-
-interface ScrapedData {
-  fpId: string;
-  trustScore: string;
-  bot: string;
-  lies: string;
-}
+import ScrapedData from '../types/scrapedDataTypes';
 
 const saveAsJson = async (result: ScrapedData, timestamp: string, dir: string): Promise<void> => {
   const jsonFileName = `result_${timestamp}.json`;

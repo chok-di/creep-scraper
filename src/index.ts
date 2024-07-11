@@ -1,6 +1,12 @@
 import puppeteer, { Browser, Page } from 'puppeteer';
 
 import saveScrapedData from './helpers/saveData';
+import {
+  randomizeViewPort,
+  randomizeLanguage,
+  randomizeTimeZone,
+  randomizeGeoLocation,
+} from './helpers/randomizeUserData';
 import ScrapedData from './types/scrapedDataTypes';
 
 const CREEP_URL = 'https://abrahamjuliot.github.io/creepjs/';
@@ -10,8 +16,13 @@ const scrapeData = async () => {
   const browser: Browser = await puppeteer.launch({
     headless: false,
   });
-
   const page: Page = await browser.newPage();
+  // randomize viewport, language, time zone and location data to mimic real user behavior and avoid detection
+  await randomizeViewPort(page);
+  await randomizeLanguage(page);
+  await randomizeTimeZone(page);
+  await randomizeGeoLocation(page);
+
   try {
     await page.goto(CREEP_URL);
     // Wait for the element that contains finger print data to be present before proceeding
