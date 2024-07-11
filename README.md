@@ -31,13 +31,24 @@ This project is a web scraper designed to extract fingerprinting data from the C
 
 ## Installation
 1. Clone the repository:
+```
     git clone https://github.com/yourusername/creepjs-scraper.git
-2. Navigate to the project directory:
+```
+2. Navigate to the project directory
 3. Install dependencies:
+```
      npm install
+```     
 4. To run the scrpaer:
+   ```
      npm start
+  ```
 This will launch a browser, navigate to the CreepJS website, and scrape the specified data. The scraped data will be saved in the `/lib` directory in both JSON and PDF formats.
+```
+
+
+
+
 
 ## Challenges and Future Improvements
 
