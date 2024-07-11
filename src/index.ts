@@ -41,21 +41,26 @@ const scrapeData = async () => {
       const visitorInfo = document.querySelector('.visitor-info');
       let trustScore: string = 'N/A';
       let bot: string = 'N/A';
+      let lies: string = 'N/A';
       if (visitorInfo) {
         const divs = visitorInfo.querySelectorAll('div');
         for (const div of divs) {
-          if (div.textContent && div.textContent.includes('trust score:')) {
+          if (trustScore === 'N/A' && div.textContent && div.textContent.includes('trust score:')) {
             const scoreText = div.textContent.split('trust score:')[1].trim();
             trustScore = scoreText.split(' ')[0];
             continue;
           }
-          if (div.textContent && div.textContent.includes('bot:')) {
-            bot = div.textContent.split('bot:')[1].trim();
+          if (bot === 'N/A' && div.textContent && div.textContent.includes('bot:')) {
+            bot = div.textContent.split('bot:')[1].trim().split('\n')[0];
+            continue;
+          }
+          if (lies === 'N/A' && div.textContent && div.textContent.includes('lies (')) {
+            lies = div.textContent.trim();
             continue;
           }
         }
       }
-      return { fpId, trustScore, bot };
+      return { fpId, trustScore, bot, lies };
     }, FP_ID_LENGTH);
     console.log(result);
   } catch (err) {
