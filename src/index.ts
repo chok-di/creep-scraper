@@ -7,6 +7,7 @@ import {
   randomizeTimeZone,
   randomizeGeoLocation,
 } from './helpers/randomizeUserData';
+import { simulateWait, simulateMouseMovements } from './helpers/simulateUserBehaviour';
 import ScrapedData from './types/scrapedDataTypes';
 
 const CREEP_URL = 'https://abrahamjuliot.github.io/creepjs/';
@@ -28,11 +29,9 @@ const scrapeData = async () => {
     // Wait for the element that contains finger print data to be present before proceeding
     await page.waitForSelector('#fingerprint-data');
 
-    // wait for the animation to finish before the fp data is revealed
-    await page.evaluate(() => {
-      return new Promise((resolve) => setTimeout(resolve, 5000));
-    });
-
+    // Simulate users' behaviour of waiting and moving mouse around while waiting for the animation to finish
+    await simulateWait(page);
+    await simulateMouseMovements(page);
     const result = await page.evaluate((FP_ID_LENGTH): ScrapedData => {
       // Scrape fpId
       const fingerprintInfo = document.querySelector('#fingerprint-data');
