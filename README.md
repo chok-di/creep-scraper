@@ -28,7 +28,6 @@ This project is a web scraper designed to extract fingerprinting data from the C
 ## Prerequisites
 - Node.js (version 18 or later recommended)
 - puppeteer(version 22.12.1 recommended)
-- npm (usually comes with Node.js)
 
 ## Installation
 1. Clone the repository:
@@ -40,3 +39,20 @@ This project is a web scraper designed to extract fingerprinting data from the C
      npm start
 This will launch a browser, navigate to the CreepJS website, and scrape the specified data. The scraped data will be saved in the `/lib` directory in both JSON and PDF formats.
 
+## Challenges and Future Improvements
+
+### Bot Detection Evasion
+The CreepJS platform implements sophisticated bot and deception detection mechanisms. My initial approach of utilizing randomized user agent strings resulted in low trust scores and frequent flagging as a bot.
+
+Several tools that work for other websites were detected by CreepJS, including:
+- [puppeteer-extra-plugin-stealth](https://www.npmjs.com/package/puppeteer-extra-plugin-stealth)
+- [puppeteer-with-fingerprints](https://www.npmjs.com/package/puppeteer-with-fingerprints)
+- [fingerprint-injector](https://www.npmjs.com/package/fingerprint-injector)
+
+### User Agent Consistency
+A key area for improvement is ensuring consistency between the user agent string and other browser attributes such as platform and navigator information. This alignment is crucial for creating a more convincing browser profile.
+
+### Future Work
+Given more time, I would focus on making enhancements in these areas to improve the scraper's effectiveness:
+1. Developing more sophisticated browser fingerprinting techniques
+2. Implementing advanced methods to synchronize user agent data with browser attributes
