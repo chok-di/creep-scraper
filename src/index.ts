@@ -19,7 +19,7 @@ const scrapeData = async () => {
       return new Promise((resolve) => setTimeout(resolve, 5000));
     });
 
-    const result = await page.evaluate(() => {
+    const result = await page.evaluate((FP_ID_LENGTH) => {
       // Scrape fpId
       const fingerprintInfo = document.querySelector('#fingerprint-data');
       let fpId: string | null = null;
@@ -36,8 +36,22 @@ const scrapeData = async () => {
           }
         }
       }
-      return { fpId };
-    });
+
+      // Scrape trust score
+      const visitorInfo = document.querySelector('.visitor-info');
+      let trustScore: string = 'N/A';
+      if (visitorInfo) {
+        const divs = visitorInfo.querySelectorAll('div');
+        for (const div of divs) {
+          if (div.textContent && div.textContent.includes('trust score:')) {
+            const scoreText = div.textContent.split('trust score:')[1].trim();
+            trustScore = scoreText.split(' ')[0];
+            break;
+          }
+        }
+      }
+      return { fpId, trustScore };
+    }, FP_ID_LENGTH);
     console.log(result);
   } catch (err) {
     console.log(err);
