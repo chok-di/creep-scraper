@@ -1,5 +1,8 @@
 import puppeteer, { Browser, Page } from 'puppeteer';
 
+import saveScrapedData from './helpers/saveData';
+import ScrapedData from './types/scrapedDataTypes';
+
 const CREEP_URL = 'https://abrahamjuliot.github.io/creepjs/';
 const FP_ID_LENGTH = 64;
 
@@ -19,10 +22,10 @@ const scrapeData = async () => {
       return new Promise((resolve) => setTimeout(resolve, 5000));
     });
 
-    const result = await page.evaluate((FP_ID_LENGTH) => {
+    const result = await page.evaluate((FP_ID_LENGTH): ScrapedData => {
       // Scrape fpId
       const fingerprintInfo = document.querySelector('#fingerprint-data');
-      let fpId: string | null = null;
+      let fpId: string = 'N/A';
       if (fingerprintInfo) {
         const divs = fingerprintInfo.querySelectorAll('div');
         for (const div of divs) {
@@ -62,7 +65,8 @@ const scrapeData = async () => {
       }
       return { fpId, trustScore, bot, lies };
     }, FP_ID_LENGTH);
-    console.log(result);
+
+    await saveScrapedData(result, page);
   } catch (err) {
     console.log(err);
   } finally {
