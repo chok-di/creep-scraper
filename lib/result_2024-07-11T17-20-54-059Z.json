@@ -1,6 +1,0 @@
-{
-  "fpId": "dca28cd958f5d50c87732dec20b18d58f97a056067081ca994aa05be2d854592",
-  "trustScore": "5%",
-  "bot": "0.38:smart-enemy:lws:10001001",
-  "lies": "lies (3): \n\t\t\n\t\t.modal-creep-lies:checked ~ .modal-container {\n\t\t\tvisibility: visible;\n\t\t\topacity: 1;\n\t\t\tanimation: show 0.1s linear both;\n\t\t}\n\t\t.modal-creep-lies:checked ~ .modal-container .modal-content {\n\t\t\tanimation: enter 0.2s ease both\n\t\t}\n\t\t.modal-creep-lies:not(:checked) ~ .modal-container {\n\t\t\tvisibility: hidden;\n\t\t}\n\t\t\n\t\t\n\t\tf4864270\n\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t×\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\tNavigator.platform:\n\t\t\t\t\t\t- Linux platform and Other user agent do not match\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\tWorkerGlobalScope:\n\t\t\t\t\t\t- Linux platform and Other user agent do not match- V8 JS runtime and undefined user agent do not match\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\n\t\t\n\t-93"
-}
