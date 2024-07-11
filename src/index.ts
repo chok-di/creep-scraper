@@ -1,4 +1,5 @@
 import puppeteer, { Browser, Page } from 'puppeteer';
+import randomUseragent from 'random-useragent';
 
 import saveScrapedData from './helpers/saveData';
 import {
@@ -14,10 +15,16 @@ const CREEP_URL = 'https://abrahamjuliot.github.io/creepjs/';
 const FP_ID_LENGTH = 64;
 
 const scrapeData = async () => {
+  // randomize user agent
+  //\# TODO: find ways to bypass creep.js detection
+  const randomUserAgent = randomUseragent.getRandom();
   const browser: Browser = await puppeteer.launch({
     headless: false,
+    args: [`--user-agent=${randomUserAgent}`],
   });
   const page: Page = await browser.newPage();
+  await page.setUserAgent(randomUserAgent);
+
   // randomize viewport, language, time zone and location data to mimic real user behavior and avoid detection
   await randomizeViewPort(page);
   await randomizeLanguage(page);
@@ -68,7 +75,19 @@ const scrapeData = async () => {
             continue;
           }
           if (lies === 'N/A' && div.textContent && div.textContent.includes('lies (')) {
-            lies = div.textContent.trim();
+            const fullText = div.textContent.trim();
+            const lieCount = fullText.match(/lies \((\d+)\)/)?.[1] || '0';
+
+            const lieLines = [
+              ...new Set(
+                fullText
+                  .split('\n')
+                  .map((line) => line.trim())
+                  .filter((line) => line.startsWith('-'))
+              ),
+            ];
+
+            lies = `lies (${lieCount}): ${lieLines.join(' ')}`;
             continue;
           }
         }
